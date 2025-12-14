@@ -6,6 +6,6 @@
 # }
 
 variable "instance_alias" {
-  default = "connect-setup"
+  default = "connect-reco2"
 }
 

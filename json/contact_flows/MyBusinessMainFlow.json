@@ -1,0 +1,319 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "e40fc226-3cb0-4c18-95df-03d14c69d90c",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": -176.8,
+      "y": -32
+    },
+    "ActionMetadata": {
+      "885822fe-345c-4d3f-9a36-cec3493d8e28": {
+        "position": {
+          "x": 536.8,
+          "y": 436
+        }
+      },
+      "e40fc226-3cb0-4c18-95df-03d14c69d90c": {
+        "position": {
+          "x": -174.4,
+          "y": 90.4
+        }
+      },
+      "Default": {
+        "position": {
+          "x": 60.8,
+          "y": 232
+        },
+        "isFriendlyName": true
+      },
+      "Timeout": {
+        "position": {
+          "x": 274.4,
+          "y": 377.6
+        },
+        "isFriendlyName": true
+      },
+      "Welcome.": {
+        "position": {
+          "x": 60,
+          "y": -11.2
+        },
+        "isFriendlyName": true
+      },
+      "6f664a7a-9f9b-435c-bf30-d86ea2fac906": {
+        "position": {
+          "x": 856.8,
+          "y": 242.4
+        }
+      },
+      "ba4b6c76-f77d-479d-a255-8fb2c21e5dce": {
+        "position": {
+          "x": 285.6,
+          "y": -15.2
+        },
+        "conditionMetadata": [
+          {
+            "id": "625a82e7-4818-4074-95b3-a39342d30cdb",
+            "value": "1"
+          },
+          {
+            "id": "626e37c6-fee6-4877-864a-c8d87b3bed51",
+            "value": "2"
+          },
+          {
+            "id": "f2d7271a-eb75-4b88-86f0-ceb87e25c420",
+            "value": "3"
+          }
+        ]
+      },
+      "Working Queue": {
+        "position": {
+          "x": 941.6,
+          "y": -15.2
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "QueueId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "Error": {
+        "position": {
+          "x": 561.6,
+          "y": 221.6
+        },
+        "isFriendlyName": true
+      },
+      "3c6d1681-dd4b-4aab-ab34-999dc0e95e75": {
+        "position": {
+          "x": 527.2,
+          "y": -14.4
+        },
+        "dynamicMetadata": {}
+      },
+      "QueueName": {
+        "position": {
+          "x": 732,
+          "y": 4.8
+        },
+        "isFriendlyName": true
+      }
+    },
+    "Annotations": [],
+    "name": "My Business Main Flow",
+    "description": "My Business Main Flow",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "885822fe-345c-4d3f-9a36-cec3493d8e28",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Identifier": "e40fc226-3cb0-4c18-95df-03d14c69d90c",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Transitions": {
+        "NextAction": "Welcome."
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Unable to understand your selection.  Please try again."
+      },
+      "Identifier": "Default",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "ba4b6c76-f77d-479d-a255-8fb2c21e5dce",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "You have exceed your time to select an option.  Please try again"
+      },
+      "Identifier": "Timeout",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "885822fe-345c-4d3f-9a36-cec3493d8e28",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Thank you for calling My Business Services."
+      },
+      "Identifier": "Welcome.",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "ba4b6c76-f77d-479d-a255-8fb2c21e5dce",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "6f664a7a-9f9b-435c-bf30-d86ea2fac906",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "Error",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Please press 1 for sales, 2 for technical support, or three for customer service. "
+      },
+      "Identifier": "ba4b6c76-f77d-479d-a255-8fb2c21e5dce",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "Default",
+        "Conditions": [
+          {
+            "NextAction": "3c6d1681-dd4b-4aab-ab34-999dc0e95e75",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "3c6d1681-dd4b-4aab-ab34-999dc0e95e75",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "3c6d1681-dd4b-4aab-ab34-999dc0e95e75",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "Timeout",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "Default",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "$.LambdaInvocation.ResultData.queueArn"
+      },
+      "Identifier": "Working Queue",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "6f664a7a-9f9b-435c-bf30-d86ea2fac906",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We are experiencing techincal difficulties.  Please try again later."
+      },
+      "Identifier": "Error",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "885822fe-345c-4d3f-9a36-cec3493d8e28",
+        "Errors": [
+          {
+            "NextAction": "885822fe-345c-4d3f-9a36-cec3493d8e28",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-west-2:044336301301:function:connect-reco2-function",
+        "InvocationTimeLimitSeconds": "3",
+        "InvocationType": "SYNCHRONOUS",
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Identifier": "3c6d1681-dd4b-4aab-ab34-999dc0e95e75",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "QueueName",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "The selected queue is $.External.queueName"
+      },
+      "Identifier": "QueueName",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Working Queue",
+        "Errors": [
+          {
+            "NextAction": "Error",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

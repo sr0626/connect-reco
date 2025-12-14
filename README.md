@@ -2,6 +2,8 @@
 
 This repository contains Infrastructure-as-Code (IaC) for deploying and managing an **Amazon Connect** instance and its related AWS resources using **Terraform**.
 
+Speech and Dtmf reco example
+
 ---
 
 ## 📁 Project Structure
